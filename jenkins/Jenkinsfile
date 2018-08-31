@@ -11,6 +11,20 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
+        stage("SonarQube"){
+            steps{
+                script{
+                    try{
+                        echo "Analizando el proyecto con SonarQube."
+                        withSonarQubeEnv("Sonar Server"){
+                            sh "mvn sonar:sonar"
+                        }
+                    } catch (err){
+                        echo "The SonarQube analysis failed"
+                    }
+                }
+            }
+        }
         stage('Test') {
             steps {
                 sh 'mvn test'
