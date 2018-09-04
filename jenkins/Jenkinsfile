@@ -9,7 +9,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Analizando el proyecto con SonarQube."
-                sh 'mvn clean sonar:sonar'
+                withSonarQubeEnv("Sonar Server"){
+                    sh 'mvn sonar:sonar'
+                }
             }
         }
         stage('Test') {
