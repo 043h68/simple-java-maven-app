@@ -12,14 +12,16 @@ pipeline {
             }
         }
         stage("SonarQube"){
+            agent any
             steps{
                 script{
                     try{
                         echo "Analizando el proyecto con SonarQube."
                         withSonarQubeEnv("Sonar Server"){
-                            sh "mvn sonar:sonar"
+                            sh "mvn clean package sonar:sonar"
                         }
                     } catch (err){
+                        echo err.toString()
                         echo "The SonarQube analysis failed"
                     }
                 }
