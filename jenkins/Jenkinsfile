@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
-                sh 'mvn -v'
+                echo "Analizando el proyecto con SonarQube."
+                sh 'mvn clean sonar:sonar'
             }
         }
         stage('Test') {
