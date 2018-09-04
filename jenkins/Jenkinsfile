@@ -1,20 +1,21 @@
 pipeline {
     agent any
-    stages {        
-        stage("SonarQube"){            
-            steps{
-                script{
-                    try{
-                        echo "Analizando el proyecto con SonarQube."
-                        withSonarQubeEnv("Sonar Server"){
-                            sh "mvn clean package sonar:sonar"
-                        }
-                    } catch (err){
-                        echo err.toString()
-                        echo "The SonarQube analysis failed"
-                    }
-                }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
             }
-        }      
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
     }
 }
